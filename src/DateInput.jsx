@@ -524,7 +524,7 @@ export default class DateInput extends PureComponent {
 
   renderYear = (currentMatch, index) => {
     const { autoFocus, yearAriaLabel, yearPlaceholder, locale } = this.props;
-    const { year } = this.state;
+    let { year } = this.state;
     if (locale === 'th') year = parseInt(year) + 543
     return (
       <YearInput
