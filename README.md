@@ -9,8 +9,8 @@ A date picker for your React app.
 * No moment.js needed
 
 ## tl;dr
-* Install by executing `npm install react-date-picker` or `yarn add react-date-picker`.
-* Import by adding `import DatePicker from 'react-date-picker'`.
+* Install by executing `npm install reseller-react-date-picker` or `yarn add reseller-react-date-picker`.
+* Import by adding `import DatePicker from 'reseller-react-date-picker'`.
 * Use by adding `<DatePicker />`. Use `onChange` prop for getting new values.
 
 ## Demo
@@ -42,7 +42,7 @@ If you need to support legacy browsers like Internet Explorer 10, you will need 
 
 ### Installation
 
-Add React-Date-Picker to your project by executing `npm install react-date-picker` or `yarn add react-date-picker`.
+Add React-Date-Picker to your project by executing `npm install reseller-react-date-picker` or `yarn add reseller-react-date-picker`.
 
 ### Usage
 
@@ -50,7 +50,7 @@ Here's an example of basic usage:
 
 ```js
 import React, { useState } from 'react';
-import DatePicker from 'react-date-picker';
+import DatePicker from 'reseller-react-date-picker';
 
 function MyApp() {
   const [value, onChange] = useState(new Date());
@@ -68,9 +68,9 @@ function MyApp() {
 
 ### Custom styling
 
-If you don't want to use default React-Date-Picker and React-Calendar styles, you can import React-Date-Picker without them by using `import DatePicker from 'react-date-picker/dist/entry.nostyle';` instead.
+If you don't want to use default React-Date-Picker and React-Calendar styles, you can import React-Date-Picker without them by using `import DatePicker from 'reseller-react-date-picker/dist/entry.nostyle';` instead.
 
-Styles loaded by the default entry file are `react-date-picker/dist/DatePicker.css` and `react-calendar/dist/Calendar.css`. You can copy them to your project to build your own upon them.
+Styles loaded by the default entry file are `reseller-react-date-picker/dist/DatePicker.css` and `react-calendar/dist/Calendar.css`. You can copy them to your project to build your own upon them.
 
 ## User guide
 
