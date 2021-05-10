@@ -63,7 +63,7 @@ export default class DatePicker extends PureComponent {
     if (closeCalendar) {
       this.closeCalendar();
     }
-    console.log(value);
+
     if (onChange) {
       onChange(value);
     }
@@ -168,7 +168,7 @@ export default class DatePicker extends PureComponent {
           disabled={disabled}
           format={format}
           isCalendarOpen={isOpen}
-          locale={locale}
+          locale={locale.toLowerCase()}
           maxDate={maxDate}
           maxDetail={maxDetail}
           minDate={minDate}
@@ -226,6 +226,14 @@ export default class DatePicker extends PureComponent {
 
     const className = `${baseClassName}__calendar`;
 
+    const formatYear = (locale, date) => {
+      if (locale === 'th') {
+        return date.getFullYear() + 543;
+      }
+
+      return date.getFullYear();
+    };
+
     return (
       <Fit>
         <div className={mergeClassNames(className, `${className}--${isOpen ? 'open' : 'closed'}`)}>
@@ -234,6 +242,8 @@ export default class DatePicker extends PureComponent {
             onChange={this.onChange}
             value={value || null}
             {...calendarProps}
+            activeStartDate={value || null}
+            formatYear={formatYear}
           />
         </div>
       </Fit>

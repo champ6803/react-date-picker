@@ -5,7 +5,7 @@ import './Sample.less';
 
 export default function Sample() {
   const [value, onChange] = useState(new Date());
-
+  console.log(value);
   return (
     <div className="Sample">
       <header>
@@ -15,7 +15,7 @@ export default function Sample() {
         <main className="Sample__container__content">
           <DatePicker
             format="dd/MM/yyyy"
-            locale="TH"
+            locale="th"
             onChange={onChange}
             value={value}
           />

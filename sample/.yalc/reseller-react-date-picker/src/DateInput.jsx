@@ -24,6 +24,15 @@ const defaultMaxDate = new Date(8.64e15);
 const allViews = ['century', 'decade', 'year', 'month'];
 const allValueTypes = [...allViews.slice(1), 'day'];
 
+function getYearByLocale(locale, value) {
+  const year = getYear(value);
+  if (locale === 'th') {
+    return year + 543;
+  }
+
+  return year;
+}
+
 function toDate(value) {
   if (value instanceof Date) {
     return value;
@@ -192,7 +201,7 @@ export default class DateInput extends PureComponent {
       )
     ) {
       if (nextValue) {
-        nextState.year = getYear(nextValue).toString();
+        nextState.year = getYearByLocale(nextProps.locale, nextValue).toString();
         nextState.month = getMonthHuman(nextValue).toString();
         nextState.day = getDate(nextValue).toString();
       } else {
@@ -202,7 +211,6 @@ export default class DateInput extends PureComponent {
       }
       nextState.value = nextValue;
     }
-
     return nextState;
   }
 
@@ -373,7 +381,6 @@ export default class DateInput extends PureComponent {
    */
   onChange = (event) => {
     const { name, value } = event.target;
-
     this.setState(
       { [name]: value },
       this.onChangeExternal,
@@ -428,7 +435,6 @@ export default class DateInput extends PureComponent {
     formElements.forEach((formElement) => {
       values[formElement.name] = formElement.value;
     });
-
     if (formElements.every((formElement) => !formElement.value)) {
       onChange(null, false);
     } else if (
@@ -438,12 +444,24 @@ export default class DateInput extends PureComponent {
       const monthIndex = parseInt(values.month, 10) - 1 || 0;
       const day = parseInt(values.day || 1, 10);
 
-      const proposedValue = new Date();
-      proposedValue.setFullYear(year, monthIndex, day);
-      proposedValue.setHours(0, 0, 0, 0);
+      const proposedValue = this.getDateObjectByLocale(year, monthIndex, day);
       const processedValue = this.getProcessedValue(proposedValue);
       onChange(processedValue, false);
     }
+  }
+
+  getDateObjectByLocale = (yearInput, monthIndex, day) => {
+    const { locale } = this.props;
+
+    let year = yearInput;
+    if (locale === 'th') {
+      year -= 543;
+    }
+    const proposedValue = new Date();
+    proposedValue.setFullYear(year, monthIndex, day);
+    proposedValue.setHours(0, 0, 0, 0);
+
+    return proposedValue;
   }
 
   renderDay = (currentMatch, index) => {
@@ -523,9 +541,14 @@ export default class DateInput extends PureComponent {
   }
 
   renderYear = (currentMatch, index) => {
-    const { autoFocus, yearAriaLabel, yearPlaceholder, locale } = this.props;
-    let { year } = this.state;
-    if (locale === 'th') year = parseInt(year) + 543
+    const {
+      autoFocus, yearAriaLabel, yearPlaceholder,
+    } = this.props;
+
+    const {
+      year,
+    } = this.state;
+
     return (
       <YearInput
         key="year"
