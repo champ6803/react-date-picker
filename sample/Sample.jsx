@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DatePicker from 'react-date-picker';
+import DatePicker from 'reseller-react-date-picker';
 
 import './Sample.less';
 
@@ -14,14 +14,10 @@ export default function Sample() {
       <div className="Sample__container">
         <main className="Sample__container__content">
           <DatePicker
-            calendarAriaLabel="Toggle calendar"
-            clearAriaLabel="Clear value"
-            dayAriaLabel="Day"
-            monthAriaLabel="Month"
-            nativeInputAriaLabel="Date"
+            format="dd/MM/yyyy"
+            locale="TH"
             onChange={onChange}
             value={value}
-            yearAriaLabel="Year"
           />
         </main>
       </div>

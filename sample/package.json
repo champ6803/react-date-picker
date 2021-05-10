@@ -15,8 +15,8 @@
   "dependencies": {
     "prop-types": "^15.6.0",
     "react": "^17.0.0",
-    "react-date-picker": "latest",
-    "react-dom": "^17.0.0"
+    "react-dom": "^17.0.0",
+    "reseller-react-date-picker": "file:.yalc/reseller-react-date-picker"
   },
   "devDependencies": {
     "@babel/core": "^7.12.0",

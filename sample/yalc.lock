@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "reseller-react-date-picker": {
+      "signature": "306a4e7f37e64c58d2be81d67968d217",
+      "file": true
+    }
+  }
+}
