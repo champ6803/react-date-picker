@@ -13,6 +13,19 @@ const baseClassName = 'react-date-picker';
 const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'];
 const allViews = ['century', 'decade', 'year', 'month'];
 
+export const cultureType = {
+  buddhism: 'buddhism',
+  christianity: 'christianity',
+};
+
+export function getOffsetYearByCulture(culture) {
+  if (culture === cultureType.buddhism) {
+    return 543;
+  }
+
+  return 0;
+}
+
 export default class DatePicker extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.isOpen !== prevState.isOpenProps) {
@@ -127,6 +140,7 @@ export default class DatePicker extends PureComponent {
       disabled,
       format,
       locale,
+      culture,
       maxDate,
       maxDetail,
       minDate,
@@ -168,7 +182,8 @@ export default class DatePicker extends PureComponent {
           disabled={disabled}
           format={format}
           isCalendarOpen={isOpen}
-          locale={locale.toLowerCase()}
+          locale={locale}
+          culture={culture}
           maxDate={maxDate}
           maxDetail={maxDetail}
           minDate={minDate}
@@ -209,7 +224,7 @@ export default class DatePicker extends PureComponent {
   }
 
   renderCalendar() {
-    const { disableCalendar } = this.props;
+    const { disableCalendar, culture } = this.props;
     const { isOpen } = this.state;
 
     if (isOpen === null || disableCalendar) {
@@ -227,12 +242,19 @@ export default class DatePicker extends PureComponent {
     const className = `${baseClassName}__calendar`;
 
     const formatYear = (locale, date) => {
-      if (locale === 'th') {
-        return date.getFullYear() + 543;
-      }
-
-      return date.getFullYear();
+      const offsetYear = getOffsetYearByCulture(culture);
+      return date.getFullYear() + offsetYear;
     };
+
+    const formatMonthYear = (locale, date) => {
+      const monthString = date.toLocaleString(locale, { month: 'long' });
+      const offsetYear = getOffsetYearByCulture(culture);
+      const year = date.getFullYear() + offsetYear;
+
+      return `${monthString} ${year}`;
+    };
+
+    const getFirstOfMonth = (date) => (date ? new Date(date.getFullYear(), date.getMonth(), 1) : null);
 
     return (
       <Fit>
@@ -242,8 +264,9 @@ export default class DatePicker extends PureComponent {
             onChange={this.onChange}
             value={value || null}
             {...calendarProps}
-            activeStartDate={value || null}
+            activeStartDate={getFirstOfMonth(value)}
             formatYear={formatYear}
+            formatMonthYear={formatMonthYear}
           />
         </div>
       </Fit>
@@ -337,6 +360,10 @@ DatePicker.propTypes = {
   clearAriaLabel: PropTypes.string,
   clearIcon: PropTypes.node,
   closeCalendar: PropTypes.bool,
+  culture: PropTypes.oneOf([
+    cultureType.christianity,
+    cultureType.buddhism,
+  ]),
   dayAriaLabel: PropTypes.string,
   dayPlaceholder: PropTypes.string,
   disableCalendar: PropTypes.bool,

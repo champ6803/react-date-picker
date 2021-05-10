@@ -10,6 +10,7 @@ declare module "reseller-react-date-picker" {
     className?: string | string[];
     clearAriaLabel?: string;
     clearIcon?: JSX.Element | null;
+    culture?: CultureType;
     dayAriaLabel?: string;
     dayPlaceholder?: string;
     disabled?: boolean;
@@ -25,5 +26,10 @@ declare module "reseller-react-date-picker" {
     showLeadingZeros?: boolean;
     yearAriaLabel?: string
     yearPlaceholder?: string;
+  }
+
+  export enum CultureType {
+    CHRISTIANITY = "christianity",
+    BUDDHISM = "buddhism",
   }
 }

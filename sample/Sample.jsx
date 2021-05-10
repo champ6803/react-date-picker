@@ -5,7 +5,6 @@ import './Sample.less';
 
 export default function Sample() {
   const [value, onChange] = useState(new Date());
-  console.log(value);
   return (
     <div className="Sample">
       <header>
@@ -17,6 +16,7 @@ export default function Sample() {
             format="dd/MM/yyyy"
             locale="th"
             onChange={onChange}
+            culture="buddhism"
             value={value}
           />
         </main>

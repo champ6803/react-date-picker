@@ -8,6 +8,7 @@ import MonthInput from './DateInput/MonthInput';
 import MonthSelect from './DateInput/MonthSelect';
 import YearInput from './DateInput/YearInput';
 import NativeInput from './DateInput/NativeInput';
+import { getOffsetYearByCulture } from './DatePicker';
 
 import { getFormatter } from './shared/dateFormatter';
 import {
@@ -24,13 +25,10 @@ const defaultMaxDate = new Date(8.64e15);
 const allViews = ['century', 'decade', 'year', 'month'];
 const allValueTypes = [...allViews.slice(1), 'day'];
 
-function getYearByLocale(locale, value) {
+function getYearByCulture(culture, value) {
   const year = getYear(value);
-  if (locale === 'th') {
-    return year + 543;
-  }
-
-  return year;
+  const offsetYear = getOffsetYearByCulture(culture);
+  return year + offsetYear;
 }
 
 function toDate(value) {
@@ -201,7 +199,7 @@ export default class DateInput extends PureComponent {
       )
     ) {
       if (nextValue) {
-        nextState.year = getYearByLocale(nextProps.locale, nextValue).toString();
+        nextState.year = getYearByCulture(nextProps.culture, nextValue).toString();
         nextState.month = getMonthHuman(nextValue).toString();
         nextState.day = getDate(nextValue).toString();
       } else {
@@ -444,19 +442,17 @@ export default class DateInput extends PureComponent {
       const monthIndex = parseInt(values.month, 10) - 1 || 0;
       const day = parseInt(values.day || 1, 10);
 
-      const proposedValue = this.getDateObjectByLocale(year, monthIndex, day);
+      const proposedValue = this.getDateObjectByCulture(year, monthIndex, day);
       const processedValue = this.getProcessedValue(proposedValue);
       onChange(processedValue, false);
     }
   }
 
-  getDateObjectByLocale = (yearInput, monthIndex, day) => {
-    const { locale } = this.props;
+  getDateObjectByCulture = (yearInput, monthIndex, day) => {
+    const { culture } = this.props;
 
-    let year = yearInput;
-    if (locale === 'th') {
-      year -= 543;
-    }
+    const yearOffset = getOffsetYearByCulture(culture);
+    const year = yearInput - yearOffset;
     const proposedValue = new Date();
     proposedValue.setFullYear(year, monthIndex, day);
     proposedValue.setHours(0, 0, 0, 0);
@@ -634,6 +630,7 @@ const isValue = PropTypes.oneOfType([
 DateInput.propTypes = {
   autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
+  culture: PropTypes.string,
   dayAriaLabel: PropTypes.string,
   dayPlaceholder: PropTypes.string,
   disabled: PropTypes.bool,
