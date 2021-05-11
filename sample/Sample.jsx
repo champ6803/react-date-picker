@@ -16,7 +16,7 @@ export default function Sample() {
             format="dd/MM/yyyy"
             locale="th"
             onChange={onChange}
-            culture="buddhism"
+            culture="buddhist"
             value={value}
           />
         </main>

@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import makeEventProps from 'make-event-props';
 import mergeClassNames from 'merge-class-names';
-import Calendar from 'react-calendar';
 import Fit from 'react-fit';
+import { Calendar } from './react-calendar';
 
 import DateInput from './DateInput';
 
@@ -14,12 +14,12 @@ const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'];
 const allViews = ['century', 'decade', 'year', 'month'];
 
 export const cultureType = {
-  buddhism: 'buddhism',
-  christianity: 'christianity',
+  BUDDHIST: 'buddhist',
+  GREGORIAN: 'gregorian',
 };
 
 export function getOffsetYearByCulture(culture) {
-  if (culture === cultureType.buddhism) {
+  if (culture === cultureType.BUDDHIST) {
     return 543;
   }
 
@@ -241,20 +241,28 @@ export default class DatePicker extends PureComponent {
 
     const className = `${baseClassName}__calendar`;
 
+    const getMonthName = (locale, date) => {
+      const monthIndex = date.getMonth();
+      const tempDate = new Date();
+      tempDate.setMonth(monthIndex);
+
+      return tempDate.toLocaleString(locale, { month: 'long' });
+    };
+
     const formatYear = (locale, date) => {
       const offsetYear = getOffsetYearByCulture(culture);
       return date.getFullYear() + offsetYear;
     };
 
     const formatMonthYear = (locale, date) => {
-      const monthString = date.toLocaleString(locale, { month: 'long' });
+      const monthString = getMonthName(locale, date);
       const offsetYear = getOffsetYearByCulture(culture);
       const year = date.getFullYear() + offsetYear;
 
       return `${monthString} ${year}`;
     };
 
-    const getFirstOfMonth = (date) => (date ? new Date(date.getFullYear(), date.getMonth(), 1) : null);
+    const formatDay = (locale, date) => date.getDate();
 
     return (
       <Fit>
@@ -264,8 +272,9 @@ export default class DatePicker extends PureComponent {
             onChange={this.onChange}
             value={value || null}
             {...calendarProps}
-            activeStartDate={getFirstOfMonth(value)}
             formatYear={formatYear}
+            formatDay={formatDay}
+            formatMonth={getMonthName}
             formatMonthYear={formatMonthYear}
           />
         </div>
@@ -361,8 +370,8 @@ DatePicker.propTypes = {
   clearIcon: PropTypes.node,
   closeCalendar: PropTypes.bool,
   culture: PropTypes.oneOf([
-    cultureType.christianity,
-    cultureType.buddhism,
+    cultureType.GREGORIAN,
+    cultureType.BUDDHIST,
   ]),
   dayAriaLabel: PropTypes.string,
   dayPlaceholder: PropTypes.string,

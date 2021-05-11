@@ -29,7 +29,7 @@ declare module "reseller-react-date-picker" {
   }
 
   export enum CultureType {
-    CHRISTIANITY = "christianity",
-    BUDDHISM = "buddhism",
+    GREGORIAN = "gregorian",
+    BUDDHIST = "buddhist",
   }
 }
