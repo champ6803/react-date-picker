@@ -78,8 +78,8 @@
     "make-event-props": "^1.1.0",
     "merge-class-names": "^1.1.1",
     "prop-types": "^15.6.0",
-    "react-calendar": "^3.4.0",
     "react-fit": "^1.0.3",
+    "reseller-react-calendar": "^3.4.0",
     "update-input-width": "^1.1.1"
   },
   "peerDependencies": {
@@ -102,5 +102,5 @@
     "url": "https://github.com/champ6803/react-date-picker.git"
   },
   "funding": "https://github.com/wojtekmaj/react-date-picker?sponsor=1",
-  "yalcSig": "03f51476b5185d4f52415f67727218d0"
+  "yalcSig": "19c02e0fdfc958c795e875d31419a78b"
 }
