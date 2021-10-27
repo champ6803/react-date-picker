@@ -2432,6 +2432,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cross-env@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "cross-env@npm:7.0.3"
+  dependencies:
+    cross-spawn: ^7.0.1
+  bin:
+    cross-env: src/bin/cross-env.js
+    cross-env-shell: src/bin/cross-env-shell.js
+  checksum: af4fa4dab3ddf6c25ed5e0c95ef53ea363aceb41741e22b7eae83a12cc10cb2416e3aba29c95f2f2c3a1aa918d3444fe92fab318a8ba761e8d52ae88388496cc
+  languageName: node
+  linkType: hard
+
 "cross-spawn@npm:^6.0.0":
   version: 6.0.5
   resolution: "cross-spawn@npm:6.0.5"
@@ -2445,7 +2457,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^7.0.3":
+"cross-spawn@npm:^7.0.1, cross-spawn@npm:^7.0.3":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
   dependencies:
@@ -5464,21 +5476,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-calendar@npm:^3.4.0":
-  version: 3.4.0
-  resolution: "react-calendar@npm:3.4.0"
-  dependencies:
-    "@wojtekmaj/date-utils": ^1.0.2
-    get-user-locale: ^1.2.0
-    merge-class-names: ^1.1.1
-    prop-types: ^15.6.0
-  peerDependencies:
-    react: ^16.3.0 || ^17.0.0-0
-    react-dom: ^16.3.0 || ^17.0.0-0
-  checksum: 36ea2dd18c4f1273cf6cdf6036db023b831de2976b15ec442d918b31db6f4ff52cc4d07b65704ae2b6f4dc932644d76bc75c9c198f208d34517bf49b3cf49bff
-  languageName: node
-  linkType: hard
-
 "react-date-picker-sample-page@workspace:.":
   version: 0.0.0-use.local
   resolution: "react-date-picker-sample-page@workspace:."
@@ -5487,6 +5484,7 @@ fsevents@^1.2.7:
     "@babel/preset-env": ^7.12.0
     "@babel/preset-react": ^7.12.0
     babel-loader: ^8.0.0
+    cross-env: ^7.0.3
     css-loader: ^4.3.0
     html-webpack-plugin: ^5.1.0
     less: ^4.0.0
@@ -5737,9 +5735,24 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"reseller-react-calendar@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "reseller-react-calendar@npm:3.4.0"
+  dependencies:
+    "@wojtekmaj/date-utils": ^1.0.2
+    get-user-locale: ^1.2.0
+    merge-class-names: ^1.1.1
+    prop-types: ^15.6.0
+  peerDependencies:
+    react: ^16.3.0 || ^17.0.0-0
+    react-dom: ^16.3.0 || ^17.0.0-0
+  checksum: 38fafc69e3e0a27efd9c01ccb014c965ddee659aad964cc79ac76d03477951c3002d7ae167ef87cd5e1ace38003ee867395137ec7a3612781db49c836574e470
+  languageName: node
+  linkType: hard
+
 "reseller-react-date-picker@file:.yalc/reseller-react-date-picker::locator=react-date-picker-sample-page%40workspace%3A.":
-  version: 8.1.6
-  resolution: "reseller-react-date-picker@file:.yalc/reseller-react-date-picker#.yalc/reseller-react-date-picker::hash=1d4232&locator=react-date-picker-sample-page%40workspace%3A."
+  version: 8.1.7
+  resolution: "reseller-react-date-picker@file:.yalc/reseller-react-date-picker#.yalc/reseller-react-date-picker::hash=7f5b25&locator=react-date-picker-sample-page%40workspace%3A."
   dependencies:
     "@types/react-calendar": ^3.0.0
     "@wojtekmaj/date-utils": ^1.0.3
@@ -5747,13 +5760,13 @@ fsevents@^1.2.7:
     make-event-props: ^1.1.0
     merge-class-names: ^1.1.1
     prop-types: ^15.6.0
-    react-calendar: ^3.4.0
     react-fit: ^1.0.3
+    reseller-react-calendar: ^3.4.0
     update-input-width: ^1.1.1
   peerDependencies:
     react: ^16.3.0 || ^17.0.0-0
     react-dom: ^16.3.0 || ^17.0.0-0
-  checksum: b55216d3323998b7a2966c4d8b970eddcf1cdf28387fe47eeefe6a2a263d955f4ecba3295625bd8df635b3c644f106c6c20ec648b1b6deb15d95ded2a49a6bc9
+  checksum: 66017042002405096165db53ef5b45273588f41ebd42090bc04f2174a0cc7075465fce678613bbe0a5c9a180501cdb9ee5b5b8cc980451835ba5e3fde9db42e9
   languageName: node
   linkType: hard
 

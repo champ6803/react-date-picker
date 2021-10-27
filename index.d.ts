@@ -1,4 +1,4 @@
-import { CalendarProps } from "react-calendar";
+import { CalendarProps } from "reseller-react-calendar";
 
 declare module "reseller-react-date-picker" {
   export default function DatePicker(props: DatePickerProps): JSX.Element;

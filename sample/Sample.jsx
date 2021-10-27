@@ -39,6 +39,160 @@ export default function Sample() {
           />
         </main>
       </div>
+        <div className="Sample__container">
+            <main className="Sample__container__content">
+                <DatePicker
+                    format="dd/MM/yyyy"
+                    locale="th"
+                    onChange={onChange}
+                    culture="buddhist"
+                    value={value}
+                />
+            </main>
+        </div>
+        <div className="Sample__container">
+            <main className="Sample__container__content">
+                <DatePicker
+                    format="dd/MM/yyyy"
+                    locale="th"
+                    onChange={onChange}
+                    culture="buddhist"
+                    value={value}
+                />
+            </main>
+        </div>
+        <div className="Sample__container">
+            <main className="Sample__container__content">
+                <DatePicker
+                    format="dd/MM/yyyy"
+                    locale="th"
+                    onChange={onChange}
+                    culture="buddhist"
+                    value={value}
+                />
+            </main>
+        </div>
+        <div className="Sample__container">
+            <main className="Sample__container__content">
+                <DatePicker
+                    format="dd/MM/yyyy"
+                    locale="th"
+                    onChange={onChange}
+                    culture="buddhist"
+                    value={value}
+                />
+            </main>
+        </div>
+        <div className="Sample__container">
+            <main className="Sample__container__content">
+                <DatePicker
+                    format="dd/MM/yyyy"
+                    locale="th"
+                    onChange={onChange}
+                    culture="buddhist"
+                    value={value}
+                />
+            </main>
+        </div>
+        <div className="Sample__container">
+            <main className="Sample__container__content">
+                <DatePicker
+                    format="dd/MM/yyyy"
+                    locale="th"
+                    onChange={onChange}
+                    culture="buddhist"
+                    value={value}
+                />
+            </main>
+        </div>
+        <div className="Sample__container">
+            <main className="Sample__container__content">
+                <DatePicker
+                    format="dd/MM/yyyy"
+                    locale="th"
+                    onChange={onChange}
+                    culture="buddhist"
+                    value={value}
+                />
+            </main>
+        </div>
+        <div className="Sample__container">
+            <main className="Sample__container__content">
+                <DatePicker
+                    format="dd/MM/yyyy"
+                    locale="th"
+                    onChange={onChange}
+                    culture="buddhist"
+                    value={value}
+                />
+            </main>
+        </div>
+        <div className="Sample__container">
+            <main className="Sample__container__content">
+                <DatePicker
+                    format="dd/MM/yyyy"
+                    locale="th"
+                    onChange={onChange}
+                    culture="buddhist"
+                    value={value}
+                />
+            </main>
+        </div>
+        <div className="Sample__container">
+            <main className="Sample__container__content">
+                <DatePicker
+                    format="dd/MM/yyyy"
+                    locale="th"
+                    onChange={onChange}
+                    culture="buddhist"
+                    value={value}
+                />
+            </main>
+        </div>
+        <div className="Sample__container">
+            <main className="Sample__container__content">
+                <DatePicker
+                    format="dd/MM/yyyy"
+                    locale="th"
+                    onChange={onChange}
+                    culture="buddhist"
+                    value={value}
+                />
+            </main>
+        </div>
+        <div className="Sample__container">
+            <main className="Sample__container__content">
+                <DatePicker
+                    format="dd/MM/yyyy"
+                    locale="th"
+                    onChange={onChange}
+                    culture="buddhist"
+                    value={value}
+                />
+            </main>
+        </div>
+        <div className="Sample__container">
+            <main className="Sample__container__content">
+                <DatePicker
+                    format="dd/MM/yyyy"
+                    locale="th"
+                    onChange={onChange}
+                    culture="buddhist"
+                    value={value}
+                />
+            </main>
+        </div>
+        <div className="Sample__container">
+            <main className="Sample__container__content">
+                <DatePicker
+                    format="dd/MM/yyyy"
+                    locale="th"
+                    onChange={onChange}
+                    culture="buddhist"
+                    value={value}
+                />
+            </main>
+        </div>
     </div>
   );
 }

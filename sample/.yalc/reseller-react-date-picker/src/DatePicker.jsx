@@ -83,6 +83,91 @@ export default class DatePicker extends PureComponent {
   }
 
   onFocus = (event) => {
+    event.persist();
+    const getScrollableParent = function (element, includeHidden = false) {
+      let style = getComputedStyle(element);
+      const excludeStaticParent = style.position === "absolute";
+      const overflowRegex = includeHidden ? /(auto|scroll|hidden)/ : /(auto|scroll)/;
+
+      if (style.position === "fixed") return document.body;
+      for (let parent = element; (parent = parent.parentElement);) {
+        style = getComputedStyle(parent);
+        if (excludeStaticParent && style.position === "static") {
+          continue;
+        }
+        if (overflowRegex.test(style.overflow + style.overflowY + style.overflowX)) return parent;
+      }
+
+      return document.body;
+    };
+
+    const getDirectionPosition = (el) => {
+      const calendarMinHeight = 320;
+      const calendarMinWidth = 300;
+
+      const container = getScrollableParent(el);
+
+      const containerPosition = container.getBoundingClientRect();
+      const elemPosition = el.getBoundingClientRect();
+      let directionY;
+      let directionX;
+
+      if (elemPosition.bottom + calendarMinHeight <= containerPosition.bottom) {
+        directionY = 'bottom';
+      } else if (elemPosition.top - calendarMinHeight >= containerPosition.top) {
+        directionY = 'top';
+      } else {
+        directionY = 'center';
+      }
+
+      if (elemPosition.left + calendarMinWidth <= containerPosition.right) {
+        directionX = 'left';
+      } else if (elemPosition.right - calendarMinWidth >= containerPosition.left) {
+        directionX = 'right';
+      } else {
+        directionX = 'center';
+      }
+
+      return {
+        x: directionX,
+        y: directionY
+      }
+    };
+
+    const onSetPositionElem = (event) => {
+      const targetElem = event.target.closest('.react-date-picker')
+          .getElementsByClassName('react-date-picker__calendar')[0];
+      const container = getScrollableParent(event.target);
+      const direction = getDirectionPosition(event.target);
+      const elemPosition = event.target.getBoundingClientRect();
+      const containerPosition = container.getBoundingClientRect();
+
+      if (direction.y === 'top') {
+        targetElem.style.top = 'auto';
+        targetElem.style.bottom = `${event.target.getBoundingClientRect().height}px`;
+      } else if (direction.y === 'bottom') {
+        targetElem.style.top = '100%';
+        targetElem.style.transform = 'none';
+      } else {
+        targetElem.style.bottom = 'auto';
+        const topPosition = elemPosition.top - containerPosition.top;
+
+        targetElem.style.top = `-${topPosition}px`;
+      }
+
+      if (direction.x === 'left') {
+        targetElem.style.left = '0';
+        targetElem.style.right = 'auto';
+      } else if (direction.x === 'right') {
+        targetElem.style.left = 'auto';
+        targetElem.style.right = '0';
+      } else {
+        targetElem.style.right = 'auto';
+        const leftPosition = elemPosition.left - containerPosition.left;
+        targetElem.style.left = `-${leftPosition}px`;
+      }
+    }
+
     const { disabled, onFocus } = this.props;
 
     if (onFocus) {
@@ -95,6 +180,9 @@ export default class DatePicker extends PureComponent {
     }
 
     this.openCalendar();
+    setTimeout(() => {
+      onSetPositionElem(event);
+    }, 10);
   }
 
   openCalendar = () => {
@@ -265,20 +353,18 @@ export default class DatePicker extends PureComponent {
     const formatDay = (locale, date) => date.getDate();
 
     return (
-      <Fit>
-        <div className={mergeClassNames(className, `${className}--${isOpen ? 'open' : 'closed'}`)}>
-          <Calendar
-            className={calendarClassName}
-            onChange={this.onChange}
-            value={value || null}
-            {...calendarProps}
-            formatYear={formatYear}
-            formatDay={formatDay}
-            formatMonth={getMonthName}
-            formatMonthYear={formatMonthYear}
-          />
-        </div>
-      </Fit>
+      <div className={mergeClassNames(className, `${className}--${isOpen ? 'open' : 'closed'}`)}>
+        <Calendar
+          className={calendarClassName}
+          onChange={this.onChange}
+          value={value || null}
+          {...calendarProps}
+          formatYear={formatYear}
+          formatDay={formatDay}
+          formatMonth={getMonthName}
+          formatMonthYear={formatMonthYear}
+        />
+      </div>
     );
   }
 

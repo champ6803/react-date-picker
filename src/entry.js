@@ -1,4 +1,4 @@
-import 'react-calendar/dist/Calendar.css';
+import 'reseller-react-calendar/dist/Calendar.css';
 
 import DatePicker from './DatePicker';
 
