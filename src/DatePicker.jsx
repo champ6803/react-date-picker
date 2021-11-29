@@ -346,8 +346,8 @@ export default class DatePicker extends PureComponent {
     const getMonthName = (locale, date) => {
       const monthIndex = date.getMonth();
       const tempDate = new Date();
+      tempDate.setDate(1);
       tempDate.setMonth(monthIndex);
-
       return tempDate.toLocaleString(locale, { month: 'long' });
     };
 
