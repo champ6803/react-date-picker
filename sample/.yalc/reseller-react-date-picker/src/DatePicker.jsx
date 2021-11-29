@@ -83,11 +83,10 @@ export default class DatePicker extends PureComponent {
   }
 
   onFocus = (event) => {
-    event.persist();
-    const getScrollableParent = function (element, includeHidden = false) {
+    const getScrollableParent = function (element, axis) {
       let style = getComputedStyle(element);
       const excludeStaticParent = style.position === "absolute";
-      const overflowRegex = includeHidden ? /(auto|scroll|hidden)/ : /(auto|scroll)/;
+      const overflowRegex = /(auto|scroll)/;
 
       if (style.position === "fixed") return document.body;
       for (let parent = element; (parent = parent.parentElement);) {
@@ -95,7 +94,12 @@ export default class DatePicker extends PureComponent {
         if (excludeStaticParent && style.position === "static") {
           continue;
         }
-        if (overflowRegex.test(style.overflow + style.overflowY + style.overflowX)) return parent;
+        if (overflowRegex.test(`${style.overflow}${axis === 'x' ? style.overflowX : style.overflowY}`)) {
+          if (axis === 'x' && parent.closest('.k-content')) {
+            return parent.closest('.k-content');
+          }
+          return parent;
+        }
       }
 
       return document.body;
@@ -105,24 +109,26 @@ export default class DatePicker extends PureComponent {
       const calendarMinHeight = 320;
       const calendarMinWidth = 300;
 
-      const container = getScrollableParent(el);
+      const containerX = getScrollableParent(el, 'x');
+      const containerY = getScrollableParent(el, 'y');
 
-      const containerPosition = container.getBoundingClientRect();
+      const containerXPosition = containerX.getBoundingClientRect();
+      const containerYPosition = containerY.getBoundingClientRect();
       const elemPosition = el.getBoundingClientRect();
       let directionY;
       let directionX;
 
-      if (elemPosition.bottom + calendarMinHeight <= containerPosition.bottom) {
+      if (elemPosition.bottom + calendarMinHeight <= containerYPosition.bottom) {
         directionY = 'bottom';
-      } else if (elemPosition.top - calendarMinHeight >= containerPosition.top) {
+      } else if (elemPosition.top - calendarMinHeight >= containerYPosition.top) {
         directionY = 'top';
       } else {
         directionY = 'center';
       }
 
-      if (elemPosition.left + calendarMinWidth <= containerPosition.right) {
+      if (elemPosition.left + calendarMinWidth <= containerXPosition.right) {
         directionX = 'left';
-      } else if (elemPosition.right - calendarMinWidth >= containerPosition.left) {
+      } else if (elemPosition.right - calendarMinWidth >= containerXPosition.left) {
         directionX = 'right';
       } else {
         directionX = 'center';
@@ -134,23 +140,26 @@ export default class DatePicker extends PureComponent {
       }
     };
 
-    const onSetPositionElem = (event) => {
-      const targetElem = event.target.closest('.react-date-picker')
+    const onSetPositionElem = (eventTarget) => {
+      const targetElem = eventTarget.closest('.react-date-picker')
           .getElementsByClassName('react-date-picker__calendar')[0];
-      const container = getScrollableParent(event.target);
-      const direction = getDirectionPosition(event.target);
-      const elemPosition = event.target.getBoundingClientRect();
-      const containerPosition = container.getBoundingClientRect();
+
+      const containerX = getScrollableParent(eventTarget, 'x');
+      const containerY = getScrollableParent(eventTarget, 'y');
+      const direction = getDirectionPosition(eventTarget);
+      const elemPosition = eventTarget.getBoundingClientRect();
+      const containerXPosition = containerX.getBoundingClientRect();
+      const containerYPosition = containerY.getBoundingClientRect();
 
       if (direction.y === 'top') {
         targetElem.style.top = 'auto';
-        targetElem.style.bottom = `${event.target.getBoundingClientRect().height}px`;
+        targetElem.style.bottom = `${eventTarget.getBoundingClientRect().height}px`;
       } else if (direction.y === 'bottom') {
         targetElem.style.top = '100%';
         targetElem.style.transform = 'none';
       } else {
         targetElem.style.bottom = 'auto';
-        const topPosition = elemPosition.top - containerPosition.top;
+        const topPosition = elemPosition.top - containerYPosition.top;
 
         targetElem.style.top = `-${topPosition}px`;
       }
@@ -163,12 +172,14 @@ export default class DatePicker extends PureComponent {
         targetElem.style.right = '0';
       } else {
         targetElem.style.right = 'auto';
-        const leftPosition = elemPosition.left - containerPosition.left;
+        const leftPosition = elemPosition.left - containerXPosition.left;
         targetElem.style.left = `-${leftPosition}px`;
       }
-    }
+    };
 
     const { disabled, onFocus } = this.props;
+
+    const eventTarget = event.target;
 
     if (onFocus) {
       onFocus(event);
@@ -179,9 +190,12 @@ export default class DatePicker extends PureComponent {
       return;
     }
 
+    if (this.state.isOpen) return;
+
     this.openCalendar();
+
     setTimeout(() => {
-      onSetPositionElem(event);
+      onSetPositionElem(eventTarget);
     }, 10);
   }
 
@@ -333,7 +347,7 @@ export default class DatePicker extends PureComponent {
       const monthIndex = date.getMonth();
       const tempDate = new Date();
       tempDate.setMonth(monthIndex);
-
+      console.log(monthIndex)
       return tempDate.toLocaleString(locale, { month: 'long' });
     };
 
