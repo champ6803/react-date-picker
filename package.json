@@ -1,6 +1,6 @@
 {
   "name": "reseller-react-date-picker",
-  "version": "8.1.7",
+  "version": "8.1.8",
   "description": "A date picker for your React app.",
   "main": "dist/entry.js",
   "source": "src/entry.js",
